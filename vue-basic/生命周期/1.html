@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="/js/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="root">
+
+        <h2 :style="{opacity}">Vue11111111</h2>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                opacity: 1
+            },
+            methods: {
+
+            },
+            mounted() {
+                setInterval(()=>{
+                    // console.log(123);
+                    this.opacity -= 0.1
+                    if (this.opacity <= 0) this.opacity = 1
+                }, 16)
+            },
+
+
+        })
+
+    </script>
+</body>
+
+</html>

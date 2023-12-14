@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="/js/vue.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/dayjs/1.11.9/dayjs.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="root">
+        <h3>现在是：{{fmtTime}}</h3>
+        
+        <h3>现在是：{{getFmtTime()}}</h3>
+
+        <h3>现在是：{{time | timeformater}}</h3>
+
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                time: 1702436283871
+            },
+            methods: {
+                getFmtTime() {
+                    return dayjs(this.time).format("YYYY-MM-DD HH:mm:ss")
+
+                }
+            },
+            computed:{
+                fmtTime() {
+                    return dayjs(this.time).format("YYYY-MM-DD HH:mm:ss")
+                }
+            },
+            filters:{
+                timeformater(val) {
+                    return dayjs(val).format("YYYY-MM-DD HH:mm:ss")
+                }
+            }
+
+
+        })
+
+    </script>
+</body>
+
+</html>
