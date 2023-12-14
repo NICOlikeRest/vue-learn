@@ -11,25 +11,70 @@
 <body>
 
     <div id="root">
-        <h2>学校名称：{{name}}</h2>
-        <h2>学校地址：{{address}}</h2>
+        <xuexiao></xuexiao>
+        <xuesheng></xuesheng>
         <hr>
         <hr>
-        <h2>学生名称：{{name}}</h2>
-        <h2>学生地址：{{address}}</h2>
+
     </div>
 
     <script>
-        const vm = new Vue({
+
+        const student = Vue.extend({
+            template: `
+            <div>
+                <h2>学生名称：{{name}}</h2>
+                <h2>学生地址：{{address}}</h2>
+            </div>
+            `,
+            data() {
+                return {
+                    name: '尚硅谷',
+                    address: '北京昌平'
+                }
+            }
+        })
+        const hello = {
+            template: `
+            <div>
+                <h1>hello</h1>
+            </div>`,
+
+        }
+
+        const school = Vue.extend({
+            template: `
+            <div>
+                <h2>学校名称：{{schoolName}}</h2>
+                <h2>学校地址：{{address}}</h2>
+                <student></student>
+                <hello></hello>
+            </div>
+            `,
+            data() {
+                return {
+                    schoolName: '尚硅谷',
+                    address: '北京昌平'
+                }
+            },
+            components: {
+                student,
+                hello
+            }
+        })
+
+
+
+
+        new Vue({
             el: '#root',
             data: {
-
+                msg: '欢迎！！'
             },
-            methods: {
+            components: {
+                xuexiao: school,
 
-            },
-
-
+            }
         })
 
     </script>
