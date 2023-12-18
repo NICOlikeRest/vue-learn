@@ -1,12 +1,12 @@
 <template>
-  <div class="test">
-    学校名称：{{name}}  <hr>
+  <div class="school">
+    <h1 @click="showName">学校名称：{{name}}</h1>  <hr>
     学校地址：{{address}}
-
   </div>
 </template>
 
 <script>
+import {mixin} from '../mixin'
 export default {
     name: 'SchoolCom',
     data() {
@@ -15,12 +15,13 @@ export default {
             address: 'hangzhou'
         }
     },
+    mixins:[mixin]
     
 }
 </script>
 
-<style scoped>
-  .test {
-    background-color: green;
-  }
+<style>
+    .school {
+        background-color: green;
+    }
 </style>

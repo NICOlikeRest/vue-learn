@@ -1,5 +1,6 @@
 <template>
-  <div class="test">
+  <div>
+    <div v-text='msg'></div> <hr>
     学生名称：{{name}} <hr>
     学生性别：{{sex}} <hr>
 
@@ -8,21 +9,18 @@
 
 <script>
 export default {
-    name: 'StuedntCom',
+    name: 'SchoolCom',
     data() {
         return {
+            msg: 'hello',
             name:'yty',
             sex:'male'
         }
     },
 
-
 }
 </script>
 
-<style lang="less" scoped>
-  .test {
-    background-color: orange;
+<style>
 
-  }
 </style>

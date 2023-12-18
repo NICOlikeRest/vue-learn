@@ -2,6 +2,8 @@
   <div class="test">
     学生名称：{{name}} <hr>
     学生性别：{{sex}} <hr>
+    <button @click="sendStudentName">点击</button>
+    <button @click="unbind">解绑</button>
 
   </div>
 </template>
@@ -15,7 +17,14 @@ export default {
             sex:'male'
         }
     },
-
+    methods:{
+      sendStudentName() {
+        this.$emit('atguigu', this.name)
+      },
+      unbind() {
+        this.$off('atguigu')
+      }
+    }
 
 }
 </script>
