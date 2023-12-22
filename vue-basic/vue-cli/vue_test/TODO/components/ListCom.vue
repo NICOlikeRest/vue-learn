@@ -4,8 +4,7 @@
       v-for="todoObj in todos" 
       :key="todoObj.id" 
       :todo="todoObj" 
-      :checkTodo="checkTodo"
-      :deleteTodo="deleteTodo"/>
+      />
   </ul>
 </template>
 
@@ -14,7 +13,7 @@ import ItemCom from "./ItemCom.vue";
 export default {
   name: "ListCom",
   components: { ItemCom },
-  props:['todos', 'checkTodo', 'deleteTodo']
+  props:['todos', ]
 };
 </script>
 

@@ -4,5 +4,9 @@ module.exports = {
       entry: 'src/main.js',
     }
   },
-  lintOnSave:false
+  lintOnSave:false,
+  // devServer: {
+  //   proxy: 'http://localhost:5000'
+  // }
+
 }

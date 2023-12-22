@@ -2,27 +2,62 @@
   <li>
     <label>
       <input type="checkbox" :checked="todo.done" @change="handleCheck(todo.id)"/>
-      <span>{{todo.title}}</span>
+      <span v-show="!todo.isEdit">{{todo.title}}</span>
+      <input 
+        v-show="todo.isEdit" 
+        type="text" 
+        :value="todo.title" 
+        @blur="handleBlur(todo, $event)"
+        ref="inputTitle"
+        >
     </label>
-    <button class="btn btn-danger" style="display: none" @click="handleDelete(todo.id)">删除</button>
+    <button class="btn btn-danger" @click="handleDelete(todo.id)">删除</button>
+      <button 
+        v-show="!todo.isEdit"
+        class="btn btn-edit" 
+        @click="handleEdit(todo)" 
+        >编辑</button>
   </li>
   
 </template>
 
 <script>
+import pubsub from 'pubsub-js'
+
 export default {
   name: "ItemCom",
-  props:['todo', 'checkTodo', 'deleteTodo'],
+  props:['todo',],
   methods: {
     handleCheck(id) {
       // console.log(id);
-      this.checkTodo(id)
+      // this.checkTodo(id)
+      this.$bus.$emit('checkTodo', id)
     },
     handleDelete(id){
       // console.log(id);
       if (confirm('确定删除吗？')) {
-        this.deleteTodo(id)
+        // this.deleteTodo(id)
+      // this.$bus.$emit('deleteTodo', id)
+        pubsub.publish('deleteTodo', id)
       }
+    },
+    handleEdit(todo) {
+      if (todo.hasOwnProperty('isEdit')) {
+        todo.isEdit = true
+      } else {
+        this.$set(todo, 'isEdit', true)
+      }
+      this.$nextTick(function(){
+        this.$refs.inputTitle.focus()
+
+      })
+
+      // todo.isEdit = true
+    },
+    handleBlur(todo,e) {
+      todo.isEdit = false
+      // console.log(e.target.value);
+      this.$bus.$emit('updateTodo', todo.id, e.target.value)
     }
   },
 };

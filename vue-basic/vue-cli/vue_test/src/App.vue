@@ -1,43 +1,63 @@
 <template>
-  <div class="app">
-    <div v-text="msg"></div>
-    <!-- <StudentCom v-on:atguigu="demo"></StudentCom> -->
-    <SchoolCom :getSchoolName="getSchoolName"></SchoolCom>
-    <StudentCom ref="student"></StudentCom>
+  
+    <div class="container">
 
-  </div>
+
+      <CategoryCom title="游戏">
+        <ul >
+          <li v-for="(item, index) in games" :key="index">{{ item }}</li>
+        </ul>
+      </CategoryCom>
+
+
+      <CategoryCom title="游戏">
+          <ul >
+            <li v-for="(item, index) in games" :key="index">{{ item }}</li>
+          </ul>
+        </CategoryCom>
+
+
+
+
+
+        <CategoryCom title="游戏">
+          <ul >
+            <li v-for="(item, index) in games" :key="index">{{ item }}</li>
+          </ul>
+        </CategoryCom>
+
+      
+    </div>
 </template>
 
 <script>
-import StudentCom from './components/StudentCom.vue'
-import SchoolCom from './components/SchoolCom.vue'
+import CategoryCom from './components/CategoryCom.vue'
+
 export default {
-    name: 'App',
-    components:{StudentCom,SchoolCom},
-    data() {
-      return {
-        msg: "hello"
-      }
-    },
-    methods:{
-      getSchoolName(name) {
-        console.log('App收到了学校名：', name);
-      },
-      demo(name){
-        // console.log('demo被调用了');
-        console.log('App收到了学生名：', name);
-
-      }
-    },
-    mounted(){
-      this.$refs.student.$on('atguigu', this.demo)
+  name: "App",
+  components:{ CategoryCom },
+  data() {
+    return {
+      games: ['红色警戒', '穿越火线', '劲舞团', '超级玛丽'],
     }
+  },
 
+  
 }
 </script>
 
-<style scoped>
-  .app {
-    background-color: pink;
-  }
+<style>
+.container {
+  display: flex;
+  justify-content: space-around;
+}
+img {
+  width: 50%;
+  height: 50%;
+}
+video {
+  width: 100%;
+}
+
+
 </style>

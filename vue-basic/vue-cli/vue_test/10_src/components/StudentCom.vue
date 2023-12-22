@@ -2,7 +2,7 @@
   <div class="test">
     学生名称：{{name}} <hr>
     学生性别：{{sex}} <hr>
-
+    <button @click="sendStudentName">把学生名给school</button>
   </div>
 </template>
 
@@ -15,6 +15,11 @@ export default {
             sex:'male'
         }
     },
+    methods:{
+      sendStudentName(){
+        this.$bus.$emit('hello', 666)
+      }
+    }
 
 
 }

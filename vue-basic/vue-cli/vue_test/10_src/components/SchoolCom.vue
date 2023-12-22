@@ -15,6 +15,12 @@ export default {
             address: 'hangzhou'
         }
     },
+    mounted(){
+      // console.log(this.x);
+      this.$bus.$on('hello', (data)=>{
+        console.log('woshi school', data);
+      })
+    }
     
 }
 </script>

@@ -4,9 +4,8 @@
       <div class="todo-wrap">
         <HeaderCom @addTodo="addTodo"></HeaderCom>
         <ListCom 
-          :todos="todos" 
-          :checkTodo="checkTodo"
-          :deleteTodo="deleteTodo"></ListCom>
+          :todos="todos"   
+          ></ListCom>
         <FooterCom 
           :todos="todos"
           @checkAllTodo="checkAllTodo"
@@ -17,6 +16,7 @@
 </template>
 
 <script>
+import pubsub from 'pubsub-js'
 import HeaderCom from "./components/HeaderCom.vue";
 import ListCom from "./components/ListCom.vue";
 import FooterCom from "./components/FooterCom.vue";
@@ -40,7 +40,7 @@ export default {
         }
       })
     },
-    deleteTodo(id){
+    deleteTodo(_, id){
       this.todos = this.todos.filter((todo)=>{
         return todo.id !== id
       })
@@ -54,7 +54,15 @@ export default {
       this.todos = this.todos.filter((todo)=>{
         return !todo.done
       })
-    }
+    },
+    updatedTodo(id, title) {
+      this.todos.forEach((todo) => {
+        if (todo.id === id) {
+          todo.title = title
+        }
+      })
+    },
+    
   },
   watch: {
     
@@ -64,6 +72,18 @@ export default {
         localStorage.setItem('todos', JSON.stringify(value))
       }
     }
+  },
+  mounted() {
+    this.$bus.$on('checkTodo', this.checkTodo)
+    // this.$bus.$on('deleteTodo', this.deleteTodo)
+    this.deleteId = pubsub.subscribe('deleteTodo', this.deleteTodo)
+    this.$bus.$on('updateTodo', this.updatedTodo)
+  },
+  beforeDestroy() {
+    this.$bus.$off('checkTodo')
+    // this.$bus.$off('deleteTodo')
+    pubsub.unsubscribe(this.deleteId)
+    this.$bus.$off('updateTodo')
   }
 
 
@@ -97,6 +117,13 @@ body {
   color: #fff;
   background-color: #da4f49;
   border: 1px solid #bd362f;
+}
+
+.btn-edit {
+  color: #fff;
+  background-color: skyblue;
+  border: 1px solid rgb(135, 235, 227);
+  margin-right: 5px;
 }
 
 .btn-danger:hover {
